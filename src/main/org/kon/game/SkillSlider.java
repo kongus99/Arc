@@ -1,12 +1,5 @@
 package org.kon.game;
 
-/**
- * Created with IntelliJ IDEA.
- * User: ldudek
- * Date: 1/18/13
- * Time: 8:53 AM
- * To change this template use File | Settings | File Templates.
- */
 public class SkillSlider {
     public static final int MAX_ADJUSTMENT = 3;
     public static final int MIN_ADJUSTMENT = 0;
