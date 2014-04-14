@@ -1,9 +1,10 @@
+package org.kon.game
+
 import org.kon.game.Skill._
-import org.kon.game.SkillValue
 
-sealed class SkillAdjustmentOutOfRange extends Exception
+class SkillAdjustmentOutOfRange extends RuntimeException
 
-sealed class SkillNotOnThisSlider extends Exception
+class SkillNotOnThisSlider extends RuntimeException
 
 abstract sealed class Slider {
   val MIN = 0
