@@ -1,31 +1,24 @@
-abstract sealed class Skill {
-  def base: Int
+package org.kon.game
 
-  def sign: Int
+import org.kon.game.Skill.Skill
 
-  def value(adjustment: Int) = base + sign * adjustment
+object Skill extends Enumeration {
+  type Skill = Value
+  val SPEED, SNEAK, FIGHT, WILL, LORE, LUCK = Value
+
+  val positive = Set(SPEED, FIGHT, LORE)
+
+  def value(skill: Skill, base: Int, adjustment: Int): Int =
+    if (positive.contains(skill)) base + adjustment
+    else base + (-1) * adjustment
 }
 
-sealed case class SPEED(base: Int) extends Skill {
-  override def sign: Int = 1
+class SkillValue(skill: Skill, base: Int) {
+  def currentValue(adjustment: Int): Int = Skill.value(skill, base, adjustment)
+
+  def is(s: Skill): Boolean = skill == s
+
+  def baseValue: Int = base
 }
 
-sealed case class SNEAK(base: Int) extends Skill {
-  override def sign: Int = -1
-}
 
-sealed case class FIGHT(base: Int) extends Skill {
-  override def sign: Int = 1
-}
-
-sealed case class WILL(base: Int) extends Skill {
-  override def sign: Int = -1
-}
-
-sealed case class LORE(base: Int) extends Skill {
-  override def sign: Int = 1
-}
-
-sealed case class LUCK(base: Int) extends Skill {
-  override def sign: Int = -1
-}
