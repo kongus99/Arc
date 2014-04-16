@@ -47,7 +47,7 @@ sealed case class FightWillSlider(firstBase: Int, secondBase: Int, adjustment: I
 
   override def second: SkillValue = new SkillValue(WILL, secondBase)
 
-  override def create(first: SkillValue, second: SkillValue, adjustment: Int): SkillSlider = new SpeedSneakSlider(first.baseValue, second.baseValue, adjustment)
+  override def create(first: SkillValue, second: SkillValue, adjustment: Int): SkillSlider = new FightWillSlider(first.baseValue, second.baseValue, adjustment)
 }
 
 sealed case class LoreLuckSlider(firstBase: Int, secondBase: Int, adjustment: Int) extends SkillSlider {
@@ -55,5 +55,5 @@ sealed case class LoreLuckSlider(firstBase: Int, secondBase: Int, adjustment: In
 
   override def second: SkillValue = new SkillValue(LUCK, secondBase)
 
-  override def create(first: SkillValue, second: SkillValue, adjustment: Int): SkillSlider = new SpeedSneakSlider(first.baseValue, second.baseValue, adjustment)
+  override def create(first: SkillValue, second: SkillValue, adjustment: Int): SkillSlider = new LoreLuckSlider(first.baseValue, second.baseValue, adjustment)
 }
