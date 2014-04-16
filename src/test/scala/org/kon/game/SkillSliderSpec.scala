@@ -1,48 +1,47 @@
 package org.kon.game
 
 import org.kon.game.Skill._
-import org.scalatest.FunSpec
+import org.scalatest.FlatSpec
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class SkillSliderSpec extends FunSpec {
+class SkillSliderSpec extends FlatSpec {
 
-  describe("A Speed Sneak Slider") {
     val slider: SpeedSneakSlider = new SpeedSneakSlider(1, 3, 0)
-    it("can be checked") {
+  it should "be readable" in {
       assert(1 === slider.value(SPEED))
       assert(3 === slider.value(SNEAK))
     }
-    it("does not contain Fight skill") {
+  it should "not contain all skills" in {
       intercept[SkillNotOnThisSlider] {
         slider.value(FIGHT)
       }
     }
-    it("can be adjusted 3 times to the right from starting position") {
+  it should "be adjustable 3 times to the right from starting position" in {
       val adjusted = slider.moveRight.moveRight.moveRight
       assert(4 === adjusted.value(SPEED))
       assert(0 === adjusted.value(SNEAK))
     }
-    it("cannot be adjusted more than 3 times to the right from the starting position") {
+  it should "not be adjustable more than 3 times to the right from the starting position" in {
       intercept[SkillAdjustmentOutOfRange] {
         slider.moveRight.moveRight.moveRight.moveRight
       }
     }
-    it("cannot be adjusted to the left from the starting position") {
+  it should "not be adjustable to the left from the starting position" in {
       intercept[SkillAdjustmentOutOfRange] {
         slider.moveLeft
       }
     }
-    it("can be adjusted right and left") {
+  it should "be adjustable right and left" in {
       val adjusted = slider.moveRight.moveRight.moveRight.moveLeft.moveLeft
       assert(2 === adjusted.value(SPEED))
       assert(2 === adjusted.value(SNEAK))
     }
-    it("can be checked for the skills it contains") {
+  it should "allow checking for the skills it contains" in {
       assert(true === slider.contains(SPEED))
       assert(true === slider.contains(SNEAK))
       assert(false === slider.contains(FIGHT))
     }
-  }
+
 }
