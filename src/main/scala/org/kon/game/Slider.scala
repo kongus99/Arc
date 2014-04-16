@@ -6,7 +6,7 @@ class SkillAdjustmentOutOfRange extends RuntimeException
 
 class SkillNotOnThisSlider extends RuntimeException
 
-abstract sealed class Slider {
+abstract sealed class SkillSlider {
   val MIN = 0
   val MAX = 3
 
@@ -16,13 +16,13 @@ abstract sealed class Slider {
 
   def adjustment: Int
 
-  def create(first: SkillValue, second: SkillValue, adjustment: Int): Slider
+  def create(first: SkillValue, second: SkillValue, adjustment: Int): SkillSlider
 
-  def moveRight: Slider =
+  def moveRight: SkillSlider =
     if (adjustment < MAX) create(first, second, adjustment + 1)
     else throw new SkillAdjustmentOutOfRange
 
-  def moveLeft: Slider =
+  def moveLeft: SkillSlider =
     if (adjustment > MIN) create(first, second, adjustment - 1)
     else throw new SkillAdjustmentOutOfRange
 
@@ -34,10 +34,26 @@ abstract sealed class Slider {
   def contains(s: Skill): Boolean = first.is(s) || second.is(s)
 }
 
-sealed case class SpeedSneakSlider(firstBase: Int, secondBse: Int, adjustment: Int) extends Slider {
+sealed case class SpeedSneakSlider(firstBase: Int, secondBase: Int, adjustment: Int) extends SkillSlider {
   override def first: SkillValue = new SkillValue(SPEED, firstBase)
 
-  override def second: SkillValue = new SkillValue(SNEAK, secondBse)
+  override def second: SkillValue = new SkillValue(SNEAK, secondBase)
 
-  override def create(first: SkillValue, second: SkillValue, adjustment: Int): Slider = new SpeedSneakSlider(first.baseValue, second.baseValue, adjustment)
+  override def create(first: SkillValue, second: SkillValue, adjustment: Int): SkillSlider = new SpeedSneakSlider(first.baseValue, second.baseValue, adjustment)
+}
+
+sealed case class FightWillSlider(firstBase: Int, secondBase: Int, adjustment: Int) extends SkillSlider {
+  override def first: SkillValue = new SkillValue(FIGHT, firstBase)
+
+  override def second: SkillValue = new SkillValue(WILL, secondBase)
+
+  override def create(first: SkillValue, second: SkillValue, adjustment: Int): SkillSlider = new SpeedSneakSlider(first.baseValue, second.baseValue, adjustment)
+}
+
+sealed case class LoreLuckSlider(firstBase: Int, secondBase: Int, adjustment: Int) extends SkillSlider {
+  override def first: SkillValue = new SkillValue(LORE, firstBase)
+
+  override def second: SkillValue = new SkillValue(LUCK, secondBase)
+
+  override def create(first: SkillValue, second: SkillValue, adjustment: Int): SkillSlider = new SpeedSneakSlider(first.baseValue, second.baseValue, adjustment)
 }

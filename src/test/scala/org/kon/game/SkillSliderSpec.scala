@@ -6,7 +6,7 @@ import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class SliderSpec extends FunSpec {
+class SkillSliderSpec extends FunSpec {
 
   describe("A Speed Sneak Slider") {
     val slider: SpeedSneakSlider = new SpeedSneakSlider(1, 3, 0)
