@@ -1,7 +1,5 @@
 package org.kon.game
 
-import org.kon.game.Skill.Skill
-
 object Skill extends Enumeration {
   type Skill = Value
   val SPEED, SNEAK, FIGHT, WILL, LORE, LUCK = Value
@@ -13,12 +11,5 @@ object Skill extends Enumeration {
     else base + (-1) * adjustment
 }
 
-class SkillValue(skill: Skill, base: Int) {
-  def currentValue(adjustment: Int): Int = Skill.value(skill, base, adjustment)
-
-  def is(s: Skill): Boolean = skill == s
-
-  def baseValue: Int = base
-}
 
 
