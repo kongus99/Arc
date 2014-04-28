@@ -39,4 +39,10 @@ class SkillSliderSpec extends FlatSpec {
     assert(2 === adjusted.value(SPEED))
     assert(2 === adjusted.value(SNEAK))
   }
+
+  it should "have the same values after finishing all moves" in {
+    val adjusted = skillSet.moveRight(SPEED_SNEAK).moveRight(SPEED_SNEAK).moveRight(SPEED_SNEAK).moveLeft(SPEED_SNEAK).moveLeft(SPEED_SNEAK).finish
+    assert(2 === adjusted.value(SPEED))
+    assert(2 === adjusted.value(SNEAK))
+  }
 }
