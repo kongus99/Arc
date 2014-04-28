@@ -7,9 +7,9 @@ import org.scalatest.junit.JUnitRunner
 import org.kon.game.SkillPair._
 
 @RunWith(classOf[JUnitRunner])
-class SkillSliderSpec extends FlatSpec {
+class SkillSetOnePair extends FlatSpec {
 
-  val skillSet: SkillSet = new SkillSet(Map(SPEED -> 1, SNEAK -> 3), 100)
+  val skillSet: SkillSet = new SkillSet(Map(SPEED -> 1, SNEAK -> 3), 5)
   it should "be readable" in {
     assert(1 === skillSet.value(SPEED))
     assert(3 === skillSet.value(SNEAK))
@@ -44,5 +44,11 @@ class SkillSliderSpec extends FlatSpec {
     val adjusted = skillSet.moveRight(SPEED_SNEAK).moveRight(SPEED_SNEAK).moveRight(SPEED_SNEAK).moveLeft(SPEED_SNEAK).moveLeft(SPEED_SNEAK).finish
     assert(2 === adjusted.value(SPEED))
     assert(2 === adjusted.value(SNEAK))
+  }
+
+  it should "should return to the base position after symmetrical moves" in {
+    val adjusted = skillSet.moveRight(SPEED_SNEAK).moveLeft(SPEED_SNEAK)
+    assert(1 === adjusted.value(SPEED))
+    assert(3 === adjusted.value(SNEAK))
   }
 }
