@@ -5,6 +5,10 @@ import org.kon.game.SkillPair._
 
 class SkillAdjustmentOutOfRange extends RuntimeException
 
+class OutOfFocus extends RuntimeException
+
+class MissingSkillInSet extends RuntimeException
+
 class Inclination(value: Int) {
   val MIN = 0
   val MAX = 3
@@ -22,6 +26,8 @@ class Inclination(value: Int) {
 
 
 class SkillSet(baseValues: Map[Skill, Int], focus: Int, positions: Map[SkillPair, Int], inclinations: Map[SkillPair, Inclination]) {
+  require(baseValues.size == Skill.values.size, "All skills must be initialized with values")
+
   def this(baseValues: Map[Skill, Int], focus: Int) =
     this(baseValues,
       focus,
@@ -35,12 +41,30 @@ class SkillSet(baseValues: Map[Skill, Int], focus: Int, positions: Map[SkillPair
 
   def moveLeft(s: SkillPair): SkillSet = {
     val inc = inclinations(s).inclineLeft(positions(s))
-    create(positions, inclinations.updated(s, inc))
+    updateSet(s, inc)
+  }
+
+  def moveLeft(s: SkillPair, m: Int): SkillSet = {
+    if (m > 0) moveLeft(s).moveLeft(s, m - 1)
+    else this
+  }
+
+  def moveRight(s: SkillPair, m: Int): SkillSet = {
+    if (m > 0) moveRight(s).moveRight(s, m - 1)
+    else this
+  }
+
+
+  def updateSet(s: SkillPair, inc: Inclination): SkillSet = {
+    val newSet = create(positions, inclinations.updated(s, inc))
+    if (newSet.focusUsed > focus)
+      throw new OutOfFocus
+    newSet
   }
 
   def moveRight(s: SkillPair): SkillSet = {
     val inc = inclinations(s).inclineRight(positions(s))
-    create(positions, inclinations.updated(s, inc))
+    updateSet(s, inc)
   }
 
   def finish: SkillSet = {
@@ -54,6 +78,14 @@ class SkillSet(baseValues: Map[Skill, Int], focus: Int, positions: Map[SkillPair
   def position(s: SkillPair): Int = {
     inclinations(s).value(positions(s))
   }
+
+  def focusUsed: Int = sum(inclinations(FIGHT_WILL) :: inclinations(SPEED_SNEAK) :: inclinations(LORE_LUCK) :: Nil)
+
+  def sum(inc: List[Inclination]): Int =
+    inc match {
+      case Nil => 0
+      case x :: xs => x.value(0) + sum(xs)
+    }
 
   def create(pos: Map[SkillPair, Int], incl: Map[SkillPair, Inclination]): SkillSet = new SkillSet(baseValues, focus, pos, incl)
 
