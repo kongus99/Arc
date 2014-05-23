@@ -1,6 +1,6 @@
 package org.kon.game
 
-class Deck[C](elements: Vector[C]) {
+class Deck[C](elements: List[C]) {
 
   def drawFirst: (C, Deck[C]) = elements match {
     case x :: tail => (x, new Deck(tail))
@@ -22,7 +22,7 @@ class Deck[C](elements: Vector[C]) {
     }
   }
 
-  def putAway(elem: C): Deck[C] = ???
+  def putAway(elem: C): Deck[C] = new Deck((elem :: elements.reverse).reverse)
 
 }
 
