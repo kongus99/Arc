@@ -27,31 +27,59 @@ class DeckTest extends FunSpec {
 
     it("should throw exception when you draw an integer not in the deck") {
       intercept[DeckElementNotFound] {
-        deck.draw(5)
+        deck.draw(List(5))
       }
     }
 
     it("should throw exception when you draw every integer selectively") {
       intercept[DeckElementNotFound] {
-        deck.draw(2)._2.draw(3)._2.draw(1)._2.draw(1)
+        deck.draw(List(2)).draw(List(3)).draw(List(1)).draw(List(1))
       }
-    }
-
-    it("should return selectively drawn integer") {
-      assert(deck.draw(2)._1 === 2)
     }
 
     it("should remove the integer we have just drawn") {
       intercept[DeckElementNotFound] {
-        deck.draw(2)._2.draw(2)
+        deck.draw(List(2)).draw(List(2))
       }
     }
 
     it("should remove only the first integer we have just drawn") {
-      val deck1 = deck.putAway(2).draw(2)._2
+      val deck1 = deck.putAway(2).draw(List(2))
       assertValuesCorrect(deck1, 1 :: 3 :: 2 :: Nil)
     }
+    it("should not allow to remove same integer multiple times if it occurs only once") {
+      intercept[DeckElementNotFound] {
+        deck.draw(List(2, 2))
+      }
+    }
 
+    it("should remove all occurrences of repeating integers") {
+      val deck1 = deck.putAway(2).putAway(3).putAway(2).draw(List(2, 2, 2))
+      intercept[DeckElementNotFound] {
+        deck1.draw(List(2))
+      }
+    }
+
+    it("should remove no more than given number of integers") {
+      val deck1 = deck.putAway(2).draw(List(2))
+      deck1.draw(List(2))
+    }
+
+    it("should not remove if empty list is given") {
+      val deck1 = deck.draw(Nil)
+      assertValuesCorrect(deck1, 1 :: 2 :: 3 :: Nil)
+    }
+
+    it("should allow us to peek up to its size") {
+      val peek = deck.peek(3)
+      assert(peek === 1 :: 2 :: 3 :: Nil)
+    }
+
+    it("should not allow us to peek above its size") {
+      intercept[NotEnoughDeckElements] {
+        deck.peek(4)
+      }
+    }
   }
 
 
