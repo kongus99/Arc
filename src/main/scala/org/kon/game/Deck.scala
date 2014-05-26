@@ -1,6 +1,7 @@
 package org.kon.game
 
 class Deck[C](elements: List[C]) {
+  def size = elements.size
 
   def drawFirst: (C, Deck[C]) = elements match {
     case x :: tail => (x, new Deck(tail))

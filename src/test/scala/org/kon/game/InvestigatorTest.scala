@@ -6,17 +6,25 @@ import org.scalatest.FunSpec
 
 
 @RunWith(classOf[JUnitRunner])
-class InvestigatorTest extends FunSpec {
+class InvestigatorTest extends FunSpec with DeckTester {
   describe("An investigator without possession") {
     val investigator: Investigator[Possession] = new Investigator[Possession](Nil)
-    val deck: Deck[Possession] = new Deck[Possession](new TestPossession(1) :: new TestPossession(1) :: new TestPossession(2) :: new TestPossession(3) :: Nil)
+    val deck: Deck[Possession] = new Deck[Possession](new TP(1) :: new TP(1) :: new TP(2) :: new TP(3) :: Nil)
     it("should receive fixed possessions from deck, from which the possessions are removed") {
-      val result = investigator.giveFixedPossessions(new TestPossession(1) :: new TestPossession(2) :: Nil, deck)
-      assert((result._1.has(new TestPossession(1)) &&
-        result._1.has(new TestPossession(2)) &&
-        !result._1.has(new TestPossession(3))) === true)
+      val result = investigator.giveFixedPossessions(new TP(1) :: new TP(2) :: Nil, deck)
+      val i = result._1
+      val d = result._2
+      assert((i.has(new TP(1)) && i.has(new TP(2)) && !i.has(new TP(3))) === true)
+      deckEquals(d, new TP(1) :: new TP(3) :: Nil)
     }
   }
 }
 
-class TestPossession(v: Int) extends Possession
+class TP(val v: Int) extends Possession {
+  override def equals(other: Any): Boolean = other match {
+    case that: TP => this.v == that.v
+    case _ => false
+  }
+
+  override def hashCode: Int = 31 + v
+}
