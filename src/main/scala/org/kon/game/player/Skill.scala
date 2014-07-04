@@ -1,4 +1,4 @@
-package org.kon.game
+package org.kon.game.player
 
 object Skill extends Enumeration {
   type Skill = Value

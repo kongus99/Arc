@@ -2,6 +2,7 @@ package org.kon.game;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.kon.game.board.BoardField;
 
 import static org.junit.Assert.assertEquals;
 

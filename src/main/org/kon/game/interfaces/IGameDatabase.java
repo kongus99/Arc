@@ -1,6 +1,6 @@
 package org.kon.game.interfaces;
 
-import org.kon.game.BoardField;
+import org.kon.game.board.BoardField;
 import org.kon.game.Deck;
 import org.kon.game.Gate;
 

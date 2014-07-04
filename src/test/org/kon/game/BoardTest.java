@@ -2,6 +2,8 @@ package org.kon.game;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.kon.game.board.Board;
+import org.kon.game.board.BoardField;
 import org.kon.game.interfaces.IGameDatabase;
 import org.kon.game.interfaces.IGameGraphics;
 

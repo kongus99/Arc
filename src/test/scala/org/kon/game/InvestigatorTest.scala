@@ -1,8 +1,9 @@
 package org.kon.game
 
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.kon.game.player.{Investigator, Possession}
 import org.scalatest.FunSpec
+import org.scalatest.junit.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])

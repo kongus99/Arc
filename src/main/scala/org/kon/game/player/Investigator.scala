@@ -1,4 +1,6 @@
-package org.kon.game
+package org.kon.game.player
+
+import org.kon.game.Deck
 
 
 class Investigator[T <: Possession](possessions: List[T]) {

@@ -1,10 +1,11 @@
 package org.kon.game
 
-import org.kon.game.Skill._
-import org.scalatest.FunSpec
 import org.junit.runner.RunWith
+import org.kon.game.player.Skill._
+import org.kon.game.player.SkillPair._
+import org.kon.game.player._
+import org.scalatest.FunSpec
 import org.scalatest.junit.JUnitRunner
-import org.kon.game.SkillPair._
 
 @RunWith(classOf[JUnitRunner])
 class SkillSetTest extends FunSpec {

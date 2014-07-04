@@ -1,7 +1,7 @@
-package org.kon.game
+package org.kon.game.player
 
-import org.kon.game.Skill.Skill
-import org.kon.game.SkillPair._
+import org.kon.game.player.Skill.Skill
+import org.kon.game.player.SkillPair._
 
 class SkillAdjustmentOutOfRange extends RuntimeException
 
