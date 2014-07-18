@@ -1,33 +1,17 @@
 package org.kon.game.board
 
-class Board {
+import org.kon.game.Deck
+import org.kon.game.board.BoardElements.Gate
 
+class Board(fields: Set[BoardField], gates: Deck[Gate]) {
+  var terrorLevel: Int = 0
+  var gateState: Deck[Gate] = gates.shuffle
+  var fieldState: Set[BoardField] = fields.map(x => if (x.isStable) x else x.addClue())
 
-  //
-  //  public void setup() {
-  //    base.getGates().shuffle();
-  //    for (BoardField field : base.getBoardFields())
-  //    addClueToUnstableField(field);
-  //    graphics.drawBoard();
-  //    terrorLevel = 0;
-  //  }
-  //
-  //  private void addClueToUnstableField(BoardField field) {
-  //    if (field.type().equals(EFieldType.RED))
-  //    field.addClue(1);
-  //  }
-  //
-  //  public int terrorLevel() {
-  //    return terrorLevel;
-  //  }
-  //
-  //  public void increaseTerrorLevel(int level) {
-  //    terrorLevel += level;
-  //  }
-  //
-  //  public void decreaseTerrorLevel(int level) {
-  //    terrorLevel -= level;
-  //    if (terrorLevel < 0)
-  //      terrorLevel = 0;
-  //  }
+  def increaseTerrorLevel(): Unit = terrorLevel += 1
+
+  def decreaseTerrorLevel(): Unit = if (terrorLevel > 0) terrorLevel -= 1
+
+  def canMove(from: BoardField, to: BoardField): Boolean = from.hasNeighbor(to)
+
 }
