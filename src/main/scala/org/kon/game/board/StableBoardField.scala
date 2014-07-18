@@ -1,11 +1,7 @@
 package org.kon.game.board
 
-class StableBoardField(n: Set[BoardField], clues: Int) extends BoardField {
+class StableBoardField(neighbors: Set[BoardField], clues: Int) extends BoardField(neighbors, clues) {
   override def isStable: Boolean = true
 
-  override def neighbors: Set[BoardField] = n
-
-  override def clueCount: Int = clues
-
-  override def addClue(): BoardField = new StableBoardField(neighbors, clueCount + 1)
+  override def addClue(): BoardField = new StableBoardField(neighbors, clues + 1)
 }

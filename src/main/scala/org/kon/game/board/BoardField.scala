@@ -1,9 +1,6 @@
 package org.kon.game.board
 
-trait BoardField {
-  def clueCount: Int
-
-  def neighbors: Set[BoardField]
+abstract class BoardField(neighbors: Set[BoardField], clues: Int) {
 
   def isStable: Boolean
 
