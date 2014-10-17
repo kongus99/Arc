@@ -1,7 +1,7 @@
-package org.kon.game
+package org.kon.game.player
 
 import org.junit.runner.RunWith
-import org.kon.game.player.{Investigator, Possession}
+import org.kon.game.{Deck, DeckTester}
 import org.scalatest.FunSpec
 import org.scalatest.junit.JUnitRunner
 

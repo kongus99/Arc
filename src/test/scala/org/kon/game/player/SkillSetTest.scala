@@ -1,9 +1,8 @@
-package org.kon.game
+package org.kon.game.player
 
 import org.junit.runner.RunWith
 import org.kon.game.player.Skill._
 import org.kon.game.player.SkillPair._
-import org.kon.game.player._
 import org.scalatest.FunSpec
 import org.scalatest.junit.JUnitRunner
 
