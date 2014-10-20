@@ -81,5 +81,15 @@ class MovementTest extends FunSpec {
 
   }
 
+  describe("A move that is two field long") {
+    val investigator: Investigator[Possession] = new Investigator[Possession](1, 1, Nil)
+    val move: Movement = new Movement(investigator, 3 :: 2 :: Nil)
+
+    it("should not be valid if player has only one move point") {
+      assert(move.isValid(new SetMap((1, 3) ::(2, 3) ::(1, 2) :: Nil)))
+    }
+
+  }
+
 
 }
