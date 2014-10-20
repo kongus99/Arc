@@ -1,7 +1,7 @@
 package org.kon.game.phase
 
 class SetMap[T](mappings: List[Pair[T, T]]) {
-  private val value = {
+  private val value: Map[T, Set[T]] = {
     val reversed = mappings.map(e => (e._2, e._1))
     (mappings ::: reversed).groupBy(e => e._1).mapValues(e => e.map(x => x._2).toSet)
   }

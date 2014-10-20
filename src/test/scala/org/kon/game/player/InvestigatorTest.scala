@@ -9,7 +9,7 @@ import org.scalatest.junit.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class InvestigatorTest extends FunSpec with DeckTester {
   describe("An investigator without possession") {
-    val investigator: Investigator[Possession] = new Investigator[Possession](Nil)
+    val investigator: Investigator[Possession] = new Investigator[Possession](1, Nil)
     val deck: Deck[Possession] = new Deck[Possession](new TP(1) :: new TP(2) :: new TP(3) :: new TP(1) :: Nil)
 
     it("should receive fixed possessions from deck, from which the possessions are removed") {
