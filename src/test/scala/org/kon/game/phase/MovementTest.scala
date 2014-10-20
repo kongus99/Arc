@@ -94,6 +94,11 @@ class MovementTest extends FunSpec {
       assert(move.isValid(investigator, new SetMap((1, 3) ::(2, 3) ::(1, 2) :: Nil)))
     }
 
+    it("should be valid if player has more than two move point") {
+      val investigator: Investigator[Possession] = new Investigator[Possession](1, 3, Nil)
+      assert(move.isValid(investigator, new SetMap((1, 3) ::(2, 3) ::(1, 2) :: Nil)))
+    }
+
   }
 
 
