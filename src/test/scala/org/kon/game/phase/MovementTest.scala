@@ -13,16 +13,16 @@ class MovementTest extends FunSpec {
     val move: Movement = new Movement(3 :: Nil)
 
     it("is valid when fields are adjacent") {
-      assert(move.isValid(investigator, new Board1(new SetMap((1, 3) ::(3, 1) :: Nil), Nil)))
+      assert(move.isValid(investigator, new Board1((1, 3) ::(3, 1) :: Nil, Nil)))
     }
     it("is not valid when fields are not directly adjacent") {
-      assert(move.isValid(investigator, new Board1(new SetMap((1, 2) ::(2, 1) ::(2, 3) ::(3, 2) :: Nil), Nil)) === false)
+      assert(move.isValid(investigator, new Board1((1, 2) ::(2, 1) ::(2, 3) ::(3, 2) :: Nil, Nil)) === false)
     }
     it("is valid when fields are adjacent and there is second neighbor") {
-      assert(move.isValid(investigator, new Board1(new SetMap((1, 3) ::(1, 2) ::(3, 1) ::(2, 1) :: Nil), Nil)))
+      assert(move.isValid(investigator, new Board1((1, 3) ::(1, 2) ::(3, 1) ::(2, 1) :: Nil, Nil)))
     }
     it("is valid when there is only reverse adjacency provided") {
-      assert(move.isValid(investigator, new Board1(new SetMap((3, 1) :: Nil), Nil)))
+      assert(move.isValid(investigator, new Board1((3, 1) :: Nil, Nil)))
     }
   }
 
@@ -30,10 +30,10 @@ class MovementTest extends FunSpec {
     val move: Movement = new Movement(3 :: 1 :: Nil)
 
     it("is valid when fields are adjacent") {
-      assert(move.isValid(investigator, new Board1(new SetMap((1, 3) :: Nil), Nil)))
+      assert(move.isValid(investigator, new Board1((1, 3) :: Nil, Nil)))
     }
     it("is not valid when fields are not directly adjacent") {
-      assert(move.isValid(investigator, new Board1(new SetMap((1, 2) ::(2, 1) ::(2, 3) ::(3, 2) :: Nil), Nil)) === false)
+      assert(move.isValid(investigator, new Board1((1, 2) ::(2, 1) ::(2, 3) ::(3, 2) :: Nil, Nil)) === false)
     }
 
   }
@@ -42,11 +42,11 @@ class MovementTest extends FunSpec {
     val move: Movement = new Movement(3 :: 2 :: Nil)
 
     it("is valid when there is a path between fields") {
-      assert(move.isValid(investigator, new Board1(new SetMap((1, 3) ::(2, 3) :: Nil), Nil)))
+      assert(move.isValid(investigator, new Board1((1, 3) ::(2, 3) :: Nil, Nil)))
     }
 
     it("is not valid when there is a missing second step") {
-      assert(move.isValid(investigator, new Board1(new SetMap((1, 3) :: Nil), Nil)) === false)
+      assert(move.isValid(investigator, new Board1((1, 3) :: Nil, Nil)) === false)
     }
 
   }
@@ -55,19 +55,19 @@ class MovementTest extends FunSpec {
     val move: Movement = new Movement(3 :: 2 :: 4 :: Nil)
 
     it("is valid when there is a path between fields") {
-      assert(move.isValid(investigator, new Board1(new SetMap((1, 3) ::(2, 3) ::(4, 2) :: Nil), Nil)))
+      assert(move.isValid(investigator, new Board1((1, 3) ::(2, 3) ::(4, 2) :: Nil, Nil)))
     }
 
     it("is not valid when there is a missing first step") {
-      assert(move.isValid(investigator, new Board1(new SetMap((2, 3) ::(4, 2) :: Nil), Nil)) === false)
+      assert(move.isValid(investigator, new Board1((2, 3) ::(4, 2) :: Nil, Nil)) === false)
     }
 
     it("is not valid when there is a missing second step") {
-      assert(move.isValid(investigator, new Board1(new SetMap((4, 2) ::(1, 3) :: Nil), Nil)) === false)
+      assert(move.isValid(investigator, new Board1((4, 2) ::(1, 3) :: Nil, Nil)) === false)
     }
 
     it("is not valid when there is a missing third step") {
-      assert(move.isValid(investigator, new Board1(new SetMap((3, 1) ::(3, 2) :: Nil), Nil)) === false)
+      assert(move.isValid(investigator, new Board1((3, 1) ::(3, 2) :: Nil, Nil)) === false)
     }
 
   }
@@ -76,7 +76,7 @@ class MovementTest extends FunSpec {
     val move: Movement = new Movement(3 :: 2 :: 1 :: Nil)
 
     it("is valid when there is a path between fields") {
-      assert(move.isValid(investigator, new Board1(new SetMap((1, 3) ::(2, 3) ::(1, 2) :: Nil), Nil)))
+      assert(move.isValid(investigator, new Board1((1, 3) ::(2, 3) ::(1, 2) :: Nil, Nil)))
     }
 
   }
@@ -86,17 +86,17 @@ class MovementTest extends FunSpec {
 
     it("should not be valid if player has only one move point") {
       val investigator: Investigator[Possession] = new Investigator[Possession](1, 1, Nil)
-      assert(move.isValid(investigator, new Board1(new SetMap((1, 3) ::(2, 3) ::(1, 2) :: Nil), Nil)) === false)
+      assert(move.isValid(investigator, new Board1((1, 3) ::(2, 3) ::(1, 2) :: Nil, Nil)) === false)
     }
 
     it("should be valid if player has exactly two move point") {
       val investigator: Investigator[Possession] = new Investigator[Possession](1, 2, Nil)
-      assert(move.isValid(investigator, new Board1(new SetMap((1, 3) ::(2, 3) ::(1, 2) :: Nil), Nil)))
+      assert(move.isValid(investigator, new Board1((1, 3) ::(2, 3) ::(1, 2) :: Nil, Nil)))
     }
 
     it("should be valid if player has more than two move point") {
       val investigator: Investigator[Possession] = new Investigator[Possession](1, 3, Nil)
-      assert(move.isValid(investigator, new Board1(new SetMap((1, 3) ::(2, 3) ::(1, 2) :: Nil), Nil)))
+      assert(move.isValid(investigator, new Board1((1, 3) ::(2, 3) ::(1, 2) :: Nil, Nil)))
     }
 
   }
@@ -106,11 +106,11 @@ class MovementTest extends FunSpec {
 
     it("should not be valid if adjacent field is blocked") {
       val investigator: Investigator[Possession] = new Investigator[Possession](1, 2, Nil)
-      assert(move.isValid(investigator, new Board1(new SetMap((1, 3) ::(2, 3) ::(1, 2) :: Nil), 3 :: Nil)) === false)
+      assert(move.isValid(investigator, new Board1((1, 3) ::(2, 3) ::(1, 2) :: Nil, 3 :: Nil)) === false)
     }
     it("should not be valid if second field is blocked") {
       val investigator: Investigator[Possession] = new Investigator[Possession](1, 2, Nil)
-      assert(move.isValid(investigator, new Board1(new SetMap((1, 3) ::(2, 3) ::(1, 2) :: Nil), 2 :: Nil)) === false)
+      assert(move.isValid(investigator, new Board1((1, 3) ::(2, 3) ::(1, 2) :: Nil, 2 :: Nil)) === false)
     }
   }
 
