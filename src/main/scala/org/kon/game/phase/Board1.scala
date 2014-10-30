@@ -1,11 +1,6 @@
 package org.kon.game.phase
 
-class Board1(mappings: List[Pair[Int, Int]], obstructions: List[Int]) {
-
-  private val value: Map[Int, Set[Int]] = {
-    val reversed = mappings.map(e => (e._2, e._1))
-    (mappings ::: reversed).groupBy(e => e._1).mapValues(e => e.map(x => x._2).toSet)
-  }
+class Board1(value: Map[Int, Set[Int]], obstructions: List[Int]) {
 
   def noPathObstructions(path: List[Int]): Boolean = !containsObstructions(path)
 
@@ -23,4 +18,11 @@ class Board1(mappings: List[Pair[Int, Int]], obstructions: List[Int]) {
     case h :: tail => obstructions.contains(h) || containsObstructions(tail)
   }
 
+}
+
+object BoardFactory {
+  def create(mappings: List[Pair[Int, Int]], obstructions: List[Int]): Board1 = {
+    val reversed = mappings.map(e => (e._2, e._1))
+    new Board1((mappings ::: reversed).groupBy(e => e._1).mapValues(e => e.map(x => x._2).toSet), obstructions)
+  }
 }
