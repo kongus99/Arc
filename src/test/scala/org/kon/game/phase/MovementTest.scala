@@ -114,5 +114,34 @@ class MovementTest extends FunSpec {
     }
   }
 
+  describe("A valid move") {
+    val move: Movement = new Movement(3 :: 2 :: Nil)
+    val board = BoardFactory.create((1, 3) ::(2, 3) ::(1, 2) :: Nil, Nil, Nil)
+    val investigator: Investigator[Possession] = new Investigator[Possession](1, 2, Nil)
+
+    it("can be performed affecting player position") {
+      assert(move.perform(investigator, board).currentPosition === 2)
+    }
+
+    it("can be performed reducing player movement points") {
+      val movedInvestigator = move.perform(investigator, board)
+      assert(movedInvestigator.hasEnoughMovement(1) === false)
+    }
+  }
+
+  describe("An invalid move") {
+    val move: Movement = new Movement(3 :: 2 :: Nil)
+    val board = BoardFactory.create((1, 3) ::(2, 3) ::(1, 2) :: Nil, 3 :: Nil, Nil)
+    val investigator: Investigator[Possession] = new Investigator[Possession](1, 2, Nil)
+
+    it("should not affect player position") {
+      assert(move.perform(investigator, board).currentPosition === 1)
+    }
+
+    it("should not affect player movement points") {
+      val movedInvestigator = move.perform(investigator, board)
+      assert(movedInvestigator.hasEnoughMovement(1))
+    }
+  }
 
 }
