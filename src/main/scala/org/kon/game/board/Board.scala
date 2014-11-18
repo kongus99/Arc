@@ -12,6 +12,4 @@ class Board(fields: Set[BoardField], gates: Deck[Gate]) {
 
   def decreaseTerrorLevel(): Unit = if (terrorLevel > 0) terrorLevel -= 1
 
-  //def canMove(from: BoardField, to: BoardField): Boolean = from.hasNeighbor(to)
-
 }

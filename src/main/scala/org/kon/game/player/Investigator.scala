@@ -10,6 +10,8 @@ class Investigator[T <: Possession](position: Int, movementLimit: Int, possessio
 
   def hasEnoughMovement(pathLength: Int): Boolean = pathLength <= movementLimit
 
+  def canMove: Boolean = movementLimit > 0
+
   def giveRandomPossessions(number: Int, deck: Deck[T]): (Investigator[T], Deck[T]) =
     giveFixedPossessions(deck peek number, deck)
 
