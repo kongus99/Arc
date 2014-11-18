@@ -1,4 +1,5 @@
-//package org.kon.game.phase
+package org.kon.game.phase
+
 //
 //import org.junit.runner.RunWith
 //import org.kon.game.player.{Possession, Investigator}
